@@ -1,5 +1,6 @@
 const express = require('express')
 const User = require('../models/user')
+const acc = require('../src/emails/account')
 
 const router = new express.Router()
 
@@ -9,6 +10,9 @@ router.post('/users', async (req, res) => {
 
   try {
     await user.save()
+    console.log("user saved")
+    acc.sendWelcomeEmail(user.email, user.name)
+    console.log("email sent")
     res.status(201).send(user)
   } 
   catch(error) {
