@@ -37,7 +37,7 @@ const userSchema = new Schema({
     }
   }],
 })
-// arbitrary change
+
 userSchema.methods.generateAuthToken = async function () {
   const user = this
 
