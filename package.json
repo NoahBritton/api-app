@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/app.js",
-  "nodemonConfig": {
-    "ext": "env"
-  },
   "scripts": {
     "start": "node src/app.js",
     "dev": "env-cmd nodemon ./src/app.js"

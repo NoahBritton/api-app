@@ -1,14 +1,14 @@
-const express = require('express')
+const express = require('express');
 const cors = require('cors');
-require('../db/mongoose')
+require('../db/mongoose');
 
-const userRouter = require('../routers/users')
+const userRouter = require('../routers/users');
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(userRouter)
-app.use(cors())
+app.use(express.json());
+app.use(userRouter);
+app.use(cors());
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -19,5 +19,5 @@ app.use(function(req, res, next) {
 const port = process.env.PORT
 
 app.listen(port, () => {
-    console.log('API service is up on port ' + port)
-})
+    console.log('API service is up on port ' + port);
+});
