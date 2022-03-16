@@ -23,16 +23,16 @@ const taskSchema = new Schema({
     }
 }, { timestamps: true })
 
-userSchema.methods.toJSON = function () {
-  console.log("entered toJSON method")
+taskSchema.methods.toJSON = function () {
+  console.log("entered Task toJSON method")
   const task = this
 
   const taskObject = task.toObject()
 
-  delete userObject.__v
-  console.log("version num deleted")
+  delete taskObject.__v
+  console.log("Task version num deleted")
 
-  return userObject
+  return taskObject
 }
 
 const Task = mongoose.model('Task', taskSchema);
