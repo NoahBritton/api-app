@@ -38,6 +38,12 @@ const userSchema = new Schema({
   }],
 })
 
+userSchema.virtual('tasks', {
+  localField: '_id',
+  foreignField: 'owner',
+  ref: 'Task'
+})
+
 userSchema.methods.generateAuthToken = async function () {
   const user = this
 
