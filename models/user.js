@@ -93,7 +93,7 @@ userSchema.pre('save', async function (next) {
     console.log("password encrypted")
   }
   console.log("going into save method")
-  next()  // run the save() method
+  next()
 })
 
 const User = mongoose.model('user', userSchema);
