@@ -79,7 +79,6 @@ router.patch('/tasks', auth, async (req, res) => {
         return res.status(400).send({ error: 'Invalid updates.'})
     }       
     
-    console.log(task)
     try {
         const task = Task.find(targetId)
         console.log(task)
