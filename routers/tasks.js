@@ -81,13 +81,12 @@ router.patch('/tasks', auth, async (req, res) => {
     
     try {
         const task = Task.find(targetId)
-        console.log(task)
         props.forEach((prop) => task[prop] = mods[prop])
         await task.save()
         res.send(task)
     }
     catch (e) {
-        res.status(500).send()
+        res.status(500).send({ error: 'queried task does not exist' })
     }
 })
 
