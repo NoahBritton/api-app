@@ -73,7 +73,7 @@ router.patch('/tasks', auth, async (req, res) => {
     delete mods._id
     const id = req.body._id
     const props = Object.keys(mods)
-    const modifiable = [title, description, completed]
+    const modifiable = ['title', 'description', 'completed']
     const isValid = props.every((prop) => modifiable.includes(prop))
     if (!isValid) {
         return res.status(400).send({ error: 'Invalid updates.'})
