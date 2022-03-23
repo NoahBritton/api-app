@@ -52,10 +52,16 @@ router.get('/tasks', auth, async (req, res) => {
 })
 
 router.delete('/tasks', auth, async (req, res) => {
-
+    id = req.body
     try {
-        await Task.deleteOne({_id: req.Task._id})
-        res.send(req.task)
+        const query = id
+        const result = await Task.deleteOne(query)
+        if (result.deletedCount === 1) {
+            console.log("Successfully deleted one document.")
+        } else {
+            console.log("No documents matched the query. Deleted 0 documents.")
+        }
+        res.send()
     }
     catch (e) {
         res.status(500).send()
@@ -64,6 +70,7 @@ router.delete('/tasks', auth, async (req, res) => {
 
 router.patch('/tasks', auth, async (req, res) => {
     const mods = req.body
+    delete mods._id
     const id = req.body._id
     const props = Object.keys(mods)
     const modifiable = [title, description, completed]
