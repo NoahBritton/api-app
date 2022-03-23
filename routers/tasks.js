@@ -69,10 +69,10 @@ router.patch('/tasks', auth, async (req, res) => {
     const isValid = props.every((prop) => modifiable.includes(prop))
     if (!isValid) {
         return res.status(400).send({ error: 'Invalid updates.'})
-    }
-
+    }       
+    const targetId = new ObjectId(id)
     try {
-        const task = req.task
+        const task = Task.find({_id: targetId})
         props.forEach((prop) => task[prop] = mods[prop])
         await task.save()
         res.send(task)
