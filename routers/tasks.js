@@ -51,4 +51,16 @@ router.get('/tasks', auth, async(req, res) => {
     }
 })
 
+router.delete('/tasks', auth, async(req, res) => {
+    try {
+        await Task.deleteOne({_id: req.task._id})
+        res.send(req.task)
+    }
+    catch (e) {
+        res.status(500).send()
+    }
+})
+
+router.patch('/tasks', auth, async(req, res))
+
 module.exports = router

@@ -72,7 +72,7 @@ router.patch('/users/me', auth, async(req, res) => {
   }
 })
 
-router.delete('/users/me', auth, async (req, res) => {
+router.delete('/users/me', auth, async(req, res) => {
   try {
     await User.deleteOne({_id: req.user._id})
     res.send(req.user)
