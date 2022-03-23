@@ -4,7 +4,7 @@ const auth = require('../src/middleware/auth')
 
 const router = new express.Router()
 
-router.post('/tasks', auth, async(req, res) => {
+router.post('/tasks', auth, async (req, res) => {
     const user = req.user
 
     const task = new Task({
@@ -20,7 +20,7 @@ router.post('/tasks', auth, async(req, res) => {
     }
 })
 
-router.get('/tasks', auth, async(req, res) => {
+router.get('/tasks', auth, async (req, res) => {
     const match = {}
     const sort = {}
 
@@ -51,7 +51,7 @@ router.get('/tasks', auth, async(req, res) => {
     }
 })
 
-router.delete('/tasks', auth, async(req, res) => {
+router.delete('/tasks', auth, async (req, res) => {
     try {
         await Task.deleteOne({_id: req.task._id})
         res.send(req.task)
@@ -61,6 +61,25 @@ router.delete('/tasks', auth, async(req, res) => {
     }
 })
 
-router.patch('/tasks', auth, async(req, res))
+router.patch('/tasks', auth, async (req, res) => {
+    const mods = req.body
+    const id = req.body.id
+    const props = Object.keys(mods)
+    const modifiable = [title, description, completed]
+    const isValid = props.every((prop) => modifiable.includes(prop))
+    if (!isValid) {
+        return res.status(400).send({ error: 'Invalid updates.'})
+    }
+
+    try {
+        const task = req.task
+        props.forEach((prop) => task[prop] = mods[prop])
+        await task.save()
+        res.send(task)
+    }
+    catch (e) {
+        res.status(500).send()
+    }
+})
 
 module.exports = router
