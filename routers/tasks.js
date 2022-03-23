@@ -71,17 +71,17 @@ router.delete('/tasks', auth, async (req, res) => {
 router.patch('/tasks', auth, async (req, res) => {
     const mods = req.body
     delete mods._id
-    const id = req.body._id
+    const targetId = req.body._id
     const props = Object.keys(mods)
     const modifiable = ['title', 'description', 'completed']
     const isValid = props.every((prop) => modifiable.includes(prop))
     if (!isValid) {
         return res.status(400).send({ error: 'Invalid updates.'})
     }       
-    const targetId = new ObjectId(id)
+    
     console.log(task)
     try {
-        const task = Task.find({_id: targetId})
+        const task = Task.find(targetId)
         console.log(task)
         props.forEach((prop) => task[prop] = mods[prop])
         await task.save()
