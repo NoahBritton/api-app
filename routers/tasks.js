@@ -52,8 +52,9 @@ router.get('/tasks', auth, async (req, res) => {
 })
 
 router.delete('/tasks', auth, async (req, res) => {
+
     try {
-        await Task.deleteOne({_id: req.task._id})
+        await Task.deleteOne({_id: req.Task._id})
         res.send(req.task)
     }
     catch (e) {
@@ -63,7 +64,7 @@ router.delete('/tasks', auth, async (req, res) => {
 
 router.patch('/tasks', auth, async (req, res) => {
     const mods = req.body
-    const id = req.body.id
+    const id = req.body._id
     const props = Object.keys(mods)
     const modifiable = [title, description, completed]
     const isValid = props.every((prop) => modifiable.includes(prop))
@@ -71,8 +72,10 @@ router.patch('/tasks', auth, async (req, res) => {
         return res.status(400).send({ error: 'Invalid updates.'})
     }       
     const targetId = new ObjectId(id)
+    console.log(task)
     try {
         const task = Task.find({_id: targetId})
+        console.log(task)
         props.forEach((prop) => task[prop] = mods[prop])
         await task.save()
         res.send(task)
