@@ -85,7 +85,7 @@ router.patch('/tasks', auth, async (req, res) => {
         const task = await Task.findOne(query)
         console.log(task)
         props.forEach((prop) => task[prop] = mods[prop])
-        await task.save()
+        task = await task.save()
         res.send(task)
     }
     catch (e) {
