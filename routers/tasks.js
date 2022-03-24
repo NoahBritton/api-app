@@ -71,6 +71,7 @@ router.delete('/tasks', auth, async (req, res) => {
 router.patch('/tasks', auth, async (req, res) => {
     const mods = req.body
     delete mods._id
+    console.log(mods)
     const targetId = req.body._id
     const props = Object.keys(mods)
     const modifiable = ['title', 'description', 'completed']
