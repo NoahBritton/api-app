@@ -87,7 +87,7 @@ router.patch('/tasks', auth, async (req, res) => {
         //     if (err) throw err;
         //     task = result
         // })
-        const task = Task.findOne({ where: { targetId } });
+        const task = Task.findOne({ where: { _id: `${targetId}` } })
         console.log(task)
         props.forEach((prop) => task[prop] = mods[prop])
         await task.save()
