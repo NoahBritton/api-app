@@ -70,10 +70,10 @@ router.delete('/tasks', auth, async (req, res) => {
 
 router.patch('/tasks', auth, async (req, res) => {
     const mods = req.body
-    const query = mods._id
+    const query =  { _id : `${mods._id}` }
     delete mods._id
     console.log(mods) 
-    console.log(targetId)
+    console.log(query)
     const props = Object.keys(mods)
     const modifiable = ['title', 'description', 'completed']
     const isValid = props.every((prop) => modifiable.includes(prop))
