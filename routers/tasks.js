@@ -70,7 +70,7 @@ router.delete('/tasks', auth, async (req, res) => {
 
 router.patch('/tasks', auth, async (req, res) => {
     const mods = req.body
-    const targetId = mods._id
+    const query = mods._id
     delete mods._id
     console.log(mods) 
     console.log(targetId)
@@ -82,12 +82,7 @@ router.patch('/tasks', auth, async (req, res) => {
     }       
     
     try {
-        // const task = null
-        // Task.findOne({}, function(err, result) {
-        //     if (err) throw err;
-        //     task = result
-        // })
-        const task = Task.findOne({ where: { _id: `${targetId}` } })
+        const task = await Task.findOne(query)
         console.log(task)
         props.forEach((prop) => task[prop] = mods[prop])
         await task.save()
