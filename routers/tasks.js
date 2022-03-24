@@ -73,6 +73,7 @@ router.patch('/tasks', auth, async (req, res) => {
     delete mods._id
     console.log(mods)
     const targetId = req.body._id
+    console.log(targetId)
     const props = Object.keys(mods)
     const modifiable = ['title', 'description', 'completed']
     const isValid = props.every((prop) => modifiable.includes(prop))
@@ -81,7 +82,12 @@ router.patch('/tasks', auth, async (req, res) => {
     }       
     
     try {
-        const task = Task.find(targetId)
+        // const task = null
+        // Task.findOne({}, function(err, result) {
+        //     if (err) throw err;
+        //     task = result
+        // })
+        const task = Task.findOne({ where: { targetId } });
         props.forEach((prop) => task[prop] = mods[prop])
         await task.save()
         res.send(task)
