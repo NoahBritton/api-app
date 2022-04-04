@@ -53,6 +53,8 @@ router.get('/tasks', auth, async (req, res) => {
 
 router.delete('/tasks', auth, async (req, res) => {
     id = req.body
+    console.log(req)
+    console.log(req.body)
     try {
         const query = id
         console.log({ _id: query})
