@@ -60,6 +60,7 @@ router.delete('/tasks', auth, async (req, res) => {
             console.log("Successfully deleted one document.")
         } else {
             console.log("No documents matched the query. Deleted 0 documents.")
+            res.status(400).send()
         }
         res.send()
     }
