@@ -55,6 +55,7 @@ router.delete('/tasks', auth, async (req, res) => {
     id = req.body._id
     try {
         const query = id
+        console.log({ _id: query})
         const result = await Task.deleteOne({ _id: query})
         if (result.deletedCount === 1) {
             console.log("Successfully deleted one document.")
