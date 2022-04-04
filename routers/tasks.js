@@ -52,11 +52,12 @@ router.get('/tasks', auth, async (req, res) => {
 })
 
 router.delete('/tasks', auth, async (req, res) => {
-    id = req.body._id
+    id = req.body
     try {
         const query = id
         console.log({ _id: query})
-        const result = await Task.deleteOne({ _id: query})
+        console.log(query)
+        const result = await Task.deleteOne(query)
         if (result.deletedCount === 1) {
             console.log("Successfully deleted one document.")
         } else {
