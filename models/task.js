@@ -13,8 +13,8 @@ const taskSchema = new Schema({
         type: String
     },
     completed: {
-        type: String,
-        default: "false"
+        type: Boolean,
+        default: false
     },
     owner: {
         type: Schema.Types.ObjectId,
