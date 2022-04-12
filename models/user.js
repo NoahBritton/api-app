@@ -31,6 +31,9 @@ const userSchema = new Schema({
     required: true,
     trim: true
   },
+  avatar: {
+    type: Buffer
+  },
   tokens: [{
     token: {
       type: String,
@@ -68,19 +71,15 @@ userSchema.statics.findByCredentials = async (email, password) => {
   return user 
 }
 
-userSchema.methods.toJSON = function () {
-  console.log("entered toJSON method")
+userSchema.methods.toJSON = function() {
   const user = this
-
   const userObject = user.toObject()
-
+  
   delete userObject.password
-  console.log("password deleted")
-  delete userObject.__v
-  console.log("version num deleted")
   delete userObject.tokens
-  console.log("tokens deleted")
-
+  delete userObject.__v
+  delete userObject.avatar
+  
   return userObject
 }
 
