@@ -87,7 +87,7 @@ router.delete('/users/me', auth, async(req, res) => {
 
 const upload = multer({         
     limits: {         
-        fileSize: 1000000     
+        fileSize: 10000000     
     }, 
     fileFilter(req, file, callback) { 
         if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) { 
